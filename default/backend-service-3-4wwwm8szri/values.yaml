@@ -1,0 +1,56 @@
+service:
+  port:
+    name: http
+    l4_protocol: TCP
+    port: 8080
+    targetPort: 8080
+  label: backend-service-3-4wwwm8szri
+  name: backend-service-3-4wwwm8szri
+  selector: backend-service-3-4wwwm8szri
+  type:
+  - ClusterIP
+  - NodePort
+namespace: -@namespace@-
+pvc:
+  name: pvc-backend-service-3-4wwwm8szri
+  storageClass: tlc-block-sc
+  size: 5Gi
+  accessMode: ReadWriteOnce
+deployment:
+  app:
+    name: backend-service-3-4wwwm8szri
+    type: springboot
+  replicas: -@replicas@-
+  update:
+    type: RollingUpdate
+  repo:
+    url: -@imageRepoName@-
+  image:
+    name: backend-service-3-4wwwm8szri
+    tag: lastest
+    secret: -@repoSecret@-
+  container:
+    name: backend-service-3-4wwwm8szri
+    port: 8080
+  volume:
+    name: pvc-backend-service-3-4wwwm8szri
+  resource:
+    request:
+      memory: -@requestMemory@-
+      cpu: -@requestCpu@-
+    limits:
+      memory: -@limitsMemory@-
+      cpu: -@limitsCpu@-
+  backing: 
+    postgres:
+      name: secret-postgresql-service-1-wmonsbcf8j
+  secret:
+    name: []
+  configmap:
+    name: []
+  hpa:
+    name: hpa-backend-service-3-4wwwm8szri
+    minReplicas: -@minReplicas@-
+    maxReplicas: -@maxReplicas@-
+    cpu: -@cpuAutoScale@-
+    memory: -@memAutoScale@-

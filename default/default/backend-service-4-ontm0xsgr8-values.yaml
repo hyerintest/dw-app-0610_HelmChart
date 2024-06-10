@@ -1,0 +1,56 @@
+service:
+  port:
+    name: http
+    l4_protocol: TCP
+    port: 8080
+    targetPort: 8080
+  label: backend-service-4-ontm0xsgr8
+  name: backend-service-4-ontm0xsgr8
+  selector: backend-service-4-ontm0xsgr8
+  type:
+  - ClusterIP
+  - NodePort
+namespace: -@namespace@-
+pvc:
+  name: pvc-backend-service-4-ontm0xsgr8
+  storageClass: tlc-block-sc
+  size: 5Gi
+  accessMode: ReadWriteOnce
+deployment:
+  app:
+    name: backend-service-4-ontm0xsgr8
+    type: springboot
+  replicas: -@replicas@-
+  update:
+    type: RollingUpdate
+  repo:
+    url: -@imageRepoName@-
+  image:
+    name: backend-service-4-ontm0xsgr8
+    tag: lastest
+    secret: -@repoSecret@-
+  container:
+    name: backend-service-4-ontm0xsgr8
+    port: 8080
+  volume:
+    name: pvc-backend-service-4-ontm0xsgr8
+  resource:
+    request:
+      memory: -@requestMemory@-
+      cpu: -@requestCpu@-
+    limits:
+      memory: -@limitsMemory@-
+      cpu: -@limitsCpu@-
+  backing: 
+    mysql:
+      name: secret-mysql-service-2-y3cvx6ptj8
+  secret:
+    name: []
+  configmap:
+    name: []
+  hpa:
+    name: hpa-backend-service-4-ontm0xsgr8
+    minReplicas: -@minReplicas@-
+    maxReplicas: -@maxReplicas@-
+    cpu: -@cpuAutoScale@-
+    memory: -@memAutoScale@-
