@@ -10,7 +10,7 @@ service:
   type:
   - ClusterIP
   - NodePort
-namespace: -@namespace@-
+namespace: dw-app-0610-dev
 pvc:
   name: pvc-backend-service-2-vvkng01yua
   storageClass: tlc-block-sc
@@ -20,15 +20,15 @@ deployment:
   app:
     name: backend-service-2-vvkng01yua
     type: springboot
-  replicas: -@replicas@-
+  replicas: 1
   update:
     type: RollingUpdate
   repo:
-    url: -@imageRepoName@-
+    url: turaco-dev-registry.turacocloud.com/dev-turaco-workspace-268/turaco
   image:
     name: backend-service-2-vvkng01yua
     tag: lastest
-    secret: -@repoSecret@-
+    secret: regsecret
   container:
     name: backend-service-2-vvkng01yua
     port: 8080
@@ -36,11 +36,11 @@ deployment:
     name: pvc-backend-service-2-vvkng01yua
   resource:
     request:
-      memory: -@requestMemory@-
-      cpu: -@requestCpu@-
+      memory: 250Mi
+      cpu: 0.25
     limits:
-      memory: -@limitsMemory@-
-      cpu: -@limitsCpu@-
+      memory: 0Mi
+      cpu: 0
   backing: 
     mariadb:
       name: secret-mariadb-service-1-oxi0bly7g2
@@ -50,7 +50,7 @@ deployment:
     name: []
   hpa:
     name: hpa-backend-service-2-vvkng01yua
-    minReplicas: -@minReplicas@-
-    maxReplicas: -@maxReplicas@-
-    cpu: -@cpuAutoScale@-
+    minReplicas: 1
+    maxReplicas: 1
+    cpu: 70
     memory: -@memAutoScale@-
