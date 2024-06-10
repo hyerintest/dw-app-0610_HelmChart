@@ -1,0 +1,65 @@
+mariadb:
+  configmap:
+    name: config-mariadb-service-1-oxi0bly7g2
+  secret:
+    name: secret-mariadb-service-1-oxi0bly7g2
+    username: admin
+    password: "Napp12!"
+    root_password: "Napp12!"
+    database: maria
+    dbhost: mariadb-service-1-oxi0bly7g2
+    port: 3306
+  statefulset:
+    name: mariadb-service-1-oxi0bly7g2
+    image:
+      url: registry.turacocloud.com/turaco-common/mariadb:10.4.11
+service:
+  port:
+    name: http
+    l4_protocol: TCP
+    port: 3306
+    targetPort: 3306
+  label: mariadb-service-1-oxi0bly7g2
+  name: mariadb-service-1-oxi0bly7g2
+  selector: mariadb-service-1-oxi0bly7g2
+  type:
+  - ClusterIP
+  - NodePort
+statefulset:
+  name: mariadb-service-1-oxi0bly7g2
+  spec:
+    name: mariadb-service-1-oxi0bly7g2
+    servicename: mariadb-service-1-oxi0bly7g2
+  replicas: -@replicas@-
+  container:
+    name: mariadb-service-1-oxi0bly7g2
+    port: 3306
+  volume:
+    name: pvc-mariadb-service-1-oxi0bly7g2
+  resource:
+    request:
+      memory: -@requestMemory@-
+      cpu: -@requestCpu@-
+    limits:
+      memory: -@limitsMemory@-
+      cpu: -@limitsCpu@-
+  hpa:
+    name: hpa-mariadb-service-1-oxi0bly7g2
+    minReplicas: -@minReplicas@-
+    maxReplicas: -@maxReplicas@-
+    cpu: -@cpuAutoScale@-
+    memory: -@memAutoScale@-
+namespace: -@namespace@-
+secret:
+  name: 
+  registry:
+    name: regsecret
+    url: -@imageRepoName@-
+    username: -@accessKey@-
+    password: -@secretKey@-
+    email: info@twolinecode.com
+pvc:
+  name: pvc-mariadb-service-1-oxi0bly7g2
+  storageClass: tlc-block-sc
+  size: 5Gi
+  accessMode: ReadWriteOnce
