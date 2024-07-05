@@ -27,7 +27,7 @@ deployment:
     url: turaco-dev-registry.turacocloud.com/dev-turaco-workspace-268/turaco
   image:
     name: backend-service-4-ontm0xsgr8
-    tag: lastest
+    tag: "7106-3970-backend-service-4-ontm0xsgr8-9892f4c"
     secret: regsecret
   container:
     name: backend-service-4-ontm0xsgr8
